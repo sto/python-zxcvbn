@@ -20,6 +20,7 @@ result dictionary with the following keys:
 
 ### New
 New is the "feedback" key. It contains a dictionary with the following keys:
+
 Key | Description
 ------------ | -------------
 warning | Contains 0-1 warning string. 
@@ -31,7 +32,7 @@ Key | Description
 entropy | Bits
 crack_time | Estimation of actual crack time, in seconds.
 crack_time_display | Same crack time, as a friendlier string: "instant", "6 minutes", "centuries", etc.
-score | [0,1,2,3,4] If crack time is less than [10**2, 10**4, 10**6, 10**8, Infinity] (useful for implementing a strength bar).
+score | [0,1,2,3,4] If crack time is less than [10^2, 10^4, 10^6, 10^8, Infinity] (useful for implementing a strength bar).
 match_sequence | The list of patterns that zxcvbn based the entropy calculation on.
 calculation_time | How long it took to calculate an answer, in milliseconds. usually only a few ms.
 
