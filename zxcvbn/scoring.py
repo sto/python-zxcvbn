@@ -253,7 +253,7 @@ def spatial_entropy(match):
     if 'shifted_count' in match:
         S = match['shifted_count']
         U = L - S # unshifted count
-        possibilities = sum(binom(S + U, i) for i in xrange(0, min(S, U) + 1))
+        possibilities = sum(binom(S + U, i) for i in range(0, min(S, U) + 1))
         entropy += lg(possibilities)
     return entropy
 
