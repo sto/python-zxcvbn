@@ -1,21 +1,33 @@
+# Used for regex matching capitalization
 import re
+# Used to get the regex patterns for capitalization
+# (Used the same way in the original zxcvbn)
 from zxcvbn import scoring
 
+# Default feedback value
 feedback = {
     "warning": "",
     "suggestions":[
         "Use a few words, avoid common phrases.",
-        "No need for symbols, digits, or uppercase letters.",  
+        "No need for symbols, digits, or uppercase letters.",
     ],
 }
 
 def get_feedback (score, sequence):
+    """
+    Returns the feedback dictionary consisting of ("warning","suggestions") for the given sequences.
+    """
+    # Starting feedback
     if len(sequence) == 0:
         return feedback
+    # No feedback if score is good or great
     if score > 2:
         return dict({"warning": "","suggestions": []})
+    # Tie feedback to the longest match for longer sequences
     longest_match = max(sequence, key=lambda x: len(x['token']))
+    # Get feedback for this match
     feedback = get_match_feedback(longest_match, len(sequence) == 1)
+    # If no concrete feedback returned, give more general feedback
     if not feedback:
         feedback = {
             "warning": "",
@@ -26,9 +38,14 @@ def get_feedback (score, sequence):
     return feedback
 
 def get_match_feedback(match, is_sole_match):
+    """
+    Returns feedback as a dictionary for a certain match
+    """
+    # Define a number of functions that are used in a look up dictionary
     def fun_bruteforce():
         return None
     def fun_dictionary():
+        # If the match is of type dictionary, call specific function
         return get_dictionary_match_feedback(match, is_sole_match)
     def fun_spatial():
         if match["turns"] == 1:
@@ -53,14 +70,14 @@ def get_match_feedback(match, is_sole_match):
                 "suggestions":[
                     "Avoid repeated words and characters."
                 ],
-            }        
+            }
         else:
             feedback ={
                     "warning": 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
                     "suggestions":[
                         "Avoid repeated words and characters."
                         ],
-                    }        
+                    }
         return feedback
     def fun_sequence():
         return {
@@ -68,7 +85,7 @@ def get_match_feedback(match, is_sole_match):
             "suggestions":[
                 "Avoid sequences."
             ],
-        }        
+        }
     def fun_regex():
         if match["regex_name"] == "recent_year":
             return {
@@ -77,29 +94,33 @@ def get_match_feedback(match, is_sole_match):
                     "Avoid recent years."
                     "Avoid years that are associated with you."
                 ],
-            }        
+            }
     def fun_date():
         return {
             "warning": "Dates are often easy to guess.",
             "suggestions":[
                 "Avoid dates and years that are associated with you."
             ],
-        }        
-    
+        }
+    # Dictionary that maps pattern names to funtions that return feedback
     patterns = {
         "bruteforce": fun_bruteforce,
         "dictionary": fun_dictionary,
         "spatial": fun_spatial,
         "repeat": fun_repeat,
-        "sequence": fun_sequence, 
+        "sequence": fun_sequence,
         "regex": fun_regex,
         "date": fun_date,
     }
     return(patterns[match['pattern']]())
-        
+
 def get_dictionary_match_feedback(match, is_sole_match):
+    """
+    Returns feedback for a match that is found in a dictionary
+    """
     warning = ""
     suggestions = []
+    # If the match is a common password
     if match["dictionary_name"] == "passwords":
         if is_sole_match and not match["l33t_entropy"]:
             if match["rank"] <= 10:
@@ -110,19 +131,23 @@ def get_dictionary_match_feedback(match, is_sole_match):
                 warning = "This is a very common password."
         else:
             warning = "This is similar to a commonly used password."
+    # If the match is a common english word
     elif match["dictionary_name"] == "english":
         if is_sole_match:
             warning = "A word by itself is easy to guess."
+    # If the match is a common surname/name
     elif match["dictionary_name"] in ["surnames", "male_names", "female_names"]:
         if is_sole_match:
             warning = "Names and surnames by themselves are easy to guess."
         else:
             warning = "Common names and surnames are easy to guess."
     word = match["token"]
+    # Variations of the match like UPPERCASES
     if re.match(scoring.START_UPPER, word):
         suggestions.append("Capitalization doesn't help very much.")
     elif re.match(scoring.ALL_UPPER, word):
         suggestions.append("All-uppercase is almost as easy to guess as all-lowercase.")
+    # Match contains l33t speak substitutions
     if match["l33t_entropy"]:
         suggestions.append("Predictable substitutions like '@' instead of 'a' don't help very much.")
     return {"warning": warning, "suggestions": suggestions}
