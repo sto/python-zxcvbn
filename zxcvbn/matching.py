@@ -29,8 +29,8 @@ def dictionary_match(password, ranked_dict):
 
     pw_lower = password.lower()
 
-    for i in xrange(0, length):
-        for j in xrange(i, length):
+    for i in range(0, length):
+        for j in range(i, length):
             word = pw_lower[i:j+1]
             if word in ranked_dict:
                 rank = ranked_dict[word]
@@ -64,7 +64,7 @@ def _build_ranked_dict(unranked_list):
 
 def _load_frequency_lists():
     data = pkg_resources.resource_string(__name__, 'generated/frequency_lists.json')
-    dicts = json.loads(data)
+    dicts = json.loads(data.decode())
     for name, wordlist in dicts.items():
         DICTIONARY_MATCHERS.append(_build_dict_matcher(name, _build_ranked_dict(wordlist)))
 
@@ -72,7 +72,7 @@ def _load_frequency_lists():
 def _load_adjacency_graphs():
     global GRAPHS
     data = pkg_resources.resource_string(__name__, 'generated/adjacency_graphs.json')
-    GRAPHS = json.loads(data)
+    GRAPHS = json.loads(data.decode())
 
 
 # on qwerty, 'g' has degree 6, being adjacent to 'ftyhbv'. '\' has degree 1.
@@ -142,7 +142,7 @@ def enumerate_l33t_subs(table):
                 deduped.append(sub)
         return deduped
 
-    keys = table.keys()
+    keys = list(table.keys())
     while len(keys) > 0:
         first_key = keys[0]
         rest_keys = keys[1:]
