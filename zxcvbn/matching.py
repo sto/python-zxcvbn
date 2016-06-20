@@ -169,14 +169,14 @@ def enumerate_l33t_subs(table):
     return map(dict, subs)
 
 
-def l33t_match(password):
+def l33t_match(password, matchers=DICTIONARY_MATCHERS):
     matches = []
 
     for sub in enumerate_l33t_subs(relevant_l33t_subtable(password)):
         if len(sub) == 0:
             break
         subbed_password = translate(password, sub)
-        for matcher in DICTIONARY_MATCHERS:
+        for matcher in matchers:
             for match in matcher(subbed_password):
                 token = password[match['i']:match['j'] + 1]
                 if token.lower() == match['matched_word']:
@@ -529,7 +529,9 @@ def omnimatch(password, user_inputs=[]):
     	ranked_user_inputs_dict[user_input.lower()] = i+1
     user_input_matcher = _build_dict_matcher('user_inputs', ranked_user_inputs_dict)
     matches = user_input_matcher(password)
+    matches.extend(l33t_match(password, matchers=[user_input_matcher]))
     for matcher in MATCHERS:
         matches.extend(matcher(password))
     matches.sort(key=lambda x : (x['i'], x['j']))
+    print(matches)
     return matches
