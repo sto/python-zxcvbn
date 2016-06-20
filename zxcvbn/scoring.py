@@ -48,11 +48,11 @@ def minimum_entropy_match_sequence(password, matches):
     minimum entropy. O(nm) dp alg for length-n password with m candidate matches.
     """
     bruteforce_cardinality = calc_bruteforce_cardinality(password) # e.g. 26 for lowercase
-    up_to_k = [0] * len(password) # minimum entropy up to k.
+    up_to_k = [0] * (len(password) + 1) # minimum entropy up to k.
     # for the optimal sequence of matches up to k, holds the final match (match['j'] == k). null means the sequence ends
     # without a brute-force character.
     backpointers = []
-    for k in range(0, len(password)):
+    for k in range(0, len(password)+1):
         # starting scenario to try and beat: adding a brute-force character to the minimum entropy sequence at k-1.
         up_to_k[k] = get(up_to_k, k-1) + lg(bruteforce_cardinality)
         backpointers.append(None)
@@ -64,14 +64,14 @@ def minimum_entropy_match_sequence(password, matches):
             up_to = get(up_to_k, i-1)
             candidate_entropy = up_to + calc_entropy(match)
             if candidate_entropy < up_to_k[j]:
-                #print "New minimum: using " + str(match)
-                #print "Entropy: " + str(candidate_entropy)
+                #print("New minimum: using " + str(match))
+                #print("Entropy: " + str(candidate_entropy))
                 up_to_k[j] = candidate_entropy
                 backpointers[j] = match
 
     # walk backwards and decode the best sequence
     match_sequence = []
-    k = len(password) - 1
+    k = len(password)
     while k >= 0:
         match = backpointers[k]
         if match:

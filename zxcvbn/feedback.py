@@ -5,7 +5,7 @@ import re
 from zxcvbn import scoring
 
 # Default feedback value
-feedback = {
+FEEDBACK = {
     "warning": "",
     "suggestions":[
         "Use a few words, avoid common phrases.",
@@ -18,6 +18,7 @@ def get_feedback (score, sequence):
     Returns the feedback dictionary consisting of ("warning","suggestions") for the given sequences.
     """
     # Starting feedback
+    feedback = FEEDBACK
     if len(sequence) == 0:
         return feedback
     # No feedback if score is good or great
@@ -86,15 +87,14 @@ def get_match_feedback(match, is_sole_match):
                 "Avoid sequences."
             ],
         }
-    def fun_regex():
-        if match["regex_name"] == "recent_year":
-            return {
-                "warning": "Recent years are easy to guess.",
-                "suggestions":[
-                    "Avoid recent years."
-                    "Avoid years that are associated with you."
-                ],
-            }
+    def fun_year():
+        return {
+            "warning": "Recent years are easy to guess.",
+            "suggestions":[
+                "Avoid recent years."
+                "Avoid years that are associated with you."
+            ],
+        }
     def fun_date():
         return {
             "warning": "Dates are often easy to guess.",
@@ -109,7 +109,7 @@ def get_match_feedback(match, is_sole_match):
         "spatial": fun_spatial,
         "repeat": fun_repeat,
         "sequence": fun_sequence,
-        "regex": fun_regex,
+        "year": fun_year,
         "date": fun_date,
     }
     return(patterns[match['pattern']]())
@@ -121,7 +121,10 @@ def get_dictionary_match_feedback(match, is_sole_match):
     warning = ""
     suggestions = []
     # If the match is a common password
-    if match["dictionary_name"] == "passwords":
+    if match["dictionary_name"] in ["user_inputs"]:
+        warning = "Do not use your personal information in your password."
+
+    elif match["dictionary_name"] == "passwords":
         if is_sole_match and not match["l33t_entropy"]:
             if match["rank"] <= 10:
                 warning = "This is a top-10 common password."
@@ -141,6 +144,7 @@ def get_dictionary_match_feedback(match, is_sole_match):
             warning = "Names and surnames by themselves are easy to guess."
         else:
             warning = "Common names and surnames are easy to guess."
+
     word = match["token"]
     # Variations of the match like UPPERCASES
     if re.match(scoring.START_UPPER, word):
