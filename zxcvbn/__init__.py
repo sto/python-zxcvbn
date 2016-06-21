@@ -1,8 +1,9 @@
-from zxcvbn import main
+import zxcvbn.scoring
+import zxcvbn.main
 
 __all__ = ['password_strength']
 
-password_strength = main.password_strength
+password_strength = zxcvbn.main.password_strength
 
 
 if __name__ == '__main__':
