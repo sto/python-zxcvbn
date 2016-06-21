@@ -8,7 +8,7 @@ from zxcvbn import scoring
 FEEDBACK = {
     "warning": "",
     "suggestions":[
-        "Use a few words, avoid common phrases.",
+        "Use a few words. Avoid common phrases.",
         "Symbols, digits, or uppercase letters are not required.",
     ],
 }
@@ -58,7 +58,6 @@ def get_all_feedback (score, sequence):
               
         # Ensure we don't report the same warning or suggestion twice.
         for item in _all_feedback:
-            print(item)
             if item['warning'] and item['warning'] not in feedback['warnings']:
                 feedback['warnings'].append(item['warning'])
             for sugg in item['suggestions']:
@@ -123,15 +122,14 @@ def get_match_feedback(match, is_sole_match):
             return {
                 "warning": "Recent years are easy to guess.",
                 "suggestions":[
-                    "Avoid recent years.",
-                    "Avoid years that are associated with you."
+                    "Avoid recent years or years that are associated with you."
                 ],
             }
     def fun_date():
         return {
             "warning": "Dates are often easy to guess.",
             "suggestions":[
-                "Avoid dates and years that are associated with you."
+                "Avoid dates that are associated with you."
             ],
         }
     # Dictionary that maps pattern names to funtions that return feedback
