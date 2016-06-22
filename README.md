@@ -1,5 +1,10 @@
 # python(3)-zxcvbn
-This is a fork of python-zxcvbn for python 3.
+This is a fork of python-zxcvbn for python 3. This version has been further updated to port many of the latest features from the current javascript version. The documentation below is out fo date, as the reporting more closely matches the latest version.
+
+The feedback function has been altered to be much more verbose.
+
+This is definitely alpha software, and is badly in need to test cases. The subtle indexing bugs found when porting from coffeescript to python were somewhat difficult to track down. 
+
 See the original repos for more information:
 * [zxcvbn](https://github.com/dropbox/zxcvbn)
 * [python-zxcvbn](https://github.com/dropbox/python-zxcvbn)
