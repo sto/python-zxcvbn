@@ -9,8 +9,10 @@ setup(name='zxcvbn',
       url='https://www.github.com/rpearl/python-zxcvbn',
       packages=['zxcvbn'],
       package_data={'zxcvbn': ['generated/frequency_lists.json', 'generated/adjacency_graphs.json']},
+      include_package_data=True,
       cmdclass = {'compile_catalog': babel.compile_catalog,
                   'extract_messages': babel.extract_messages,
                   'init_catalog': babel.init_catalog,
                   'update_catalog': babel.update_catalog}
      )
+
