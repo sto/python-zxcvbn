@@ -2,7 +2,7 @@ from distutils.core import setup
 from babel.messages import frontend as babel
 
 setup(name='zxcvbn',
-      version='1.0',
+      version='1.0.1',
       description='Password strength estimator',
       author='Ryan Pearl',
       author_email='rpearl@dropbox.com',
