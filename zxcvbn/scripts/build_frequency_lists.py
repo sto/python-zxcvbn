@@ -44,6 +44,22 @@ def get_ranked_english():
 
     return ranked_terms
 
+def get_ranked_spanish():
+    '''
+    From https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists#Spanish you
+    can arrive to https://github.com/hermitdave/FrequencyWords/, to get the
+    list of 50k words for spanish we go to:
+
+      https://github.com/hermitdave/FrequencyWords/raw/master/content/2016/es/es_50k.txt
+
+    If we want a shorter list we can simply use head on that file.
+    '''
+    lst = []
+    for line in codecs.open('../data/es_50k.txt', 'r', 'utf8'):
+        if line.strip():
+            lst.append(line.strip().split()[0])
+    return lst
+
 def wiki_download(url):
     '''
     scrape friendly: sleep 20 seconds between each request, cache each result.
@@ -148,27 +164,30 @@ def filter_ascii(lst):
 
 def main():
     english = get_ranked_english()
+    spanish = get_ranked_spanish()
     surnames, male_names, female_names = get_ranked_census_names()
     passwords = get_ranked_common_passwords()
 
+    # We don't filter ascii for spanish
     [english,
      surnames, male_names, female_names,
-     passwords] = [filter_ascii(filter_short(lst)) for lst in (english,
+     passwords] = [filter_ascii(filter_short(lst)) for lst in (english, 
                                                                surnames, male_names, female_names,
                                                                passwords)]
 
     # make dictionaries disjoint so that d1 & d2 == set() for any two dictionaries
-    all_dicts = set(tuple(l) for l in [english, surnames, male_names, female_names, passwords])
+    all_dicts = set(tuple(l) for l in [english, spanish, surnames, male_names, female_names, passwords])
     passwords    = filter_dup(passwords,    all_dicts - set([tuple(passwords)]))
     male_names   = filter_dup(male_names,   all_dicts - set([tuple(male_names)]))
     female_names = filter_dup(female_names, all_dicts - set([tuple(female_names)]))
     surnames     = filter_dup(surnames,     all_dicts - set([tuple(surnames)]))
     english      = filter_dup(english,      all_dicts - set([tuple(english)]))
+    spanish      = filter_dup(spanish,      all_dicts - set([tuple(spanish)]))
 
-    with open('../generated/frequency_lists.json', 'w') as f: # words are all ascii at this point
+    with codecs.open('../generated/frequency_lists.json', 'w', 'utf8') as f: 
         lsts = locals()
         out = {}
-        for lst_name in 'passwords male_names female_names surnames english'.split():
+        for lst_name in 'passwords male_names female_names surnames english spanish'.split():
             lst = lsts[lst_name]
             out[lst_name] = lst
         json.dump(out, f)
@@ -179,6 +198,7 @@ def main():
     print 'female.......', len(female_names)
     print 'surnames.....', len(surnames)
     print 'english......', len(english)
+    print 'spanish......', len(spanish)
     print
 
 if __name__ == '__main__':

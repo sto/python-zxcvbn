@@ -1,0 +1,126 @@
+# Spanish translations for zxcvbn.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the zxcvbn project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zxcvbn 1.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-11-28 20:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: zxcvbn/feedback.py:13
+msgid "Use a few words. Avoid common phrases."
+msgstr "Use unas pocas palabras. Evite frases comunes."
+
+#: zxcvbn/feedback.py:14
+msgid "Symbols, digits, or uppercase letters are not required."
+msgstr "No es obligatorio usar símbolos, dígitos o mayúsculas."
+
+#: zxcvbn/feedback.py:38 zxcvbn/feedback.py:59
+msgid "Add another word or two. Uncommon words are better."
+msgstr "Añada una o dos palabras. Palabras poco comunes mejor."
+
+#: zxcvbn/feedback.py:86
+msgid "Straight rows of keys are easy to guess."
+msgstr "Las filas de teclas son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:88 zxcvbn/feedback.py:95
+msgid "Use a longer keyboard pattern with more turns."
+msgstr "Use un patrón de teclado más largo con más giros."
+
+#: zxcvbn/feedback.py:93
+msgid "Short keyboard patterns are easy to guess."
+msgstr "Los patrones de teclado cortos son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:102
+msgid "Repeats like \"aaa\" are easy to guess."
+msgstr "Repeticiones como \"aaa\" son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:104 zxcvbn/feedback.py:111
+msgid "Avoid repeated words and characters."
+msgstr "Evite palabras y caracteres repetidos."
+
+#: zxcvbn/feedback.py:109
+msgid "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\""
+msgstr ""
+"Las repeticiones como \"abcabcabc\" son sólo un poco más difíciles de "
+"adivinar que \"abc\""
+
+#: zxcvbn/feedback.py:117
+msgid "Sequences like abc or 6543 are easy to guess."
+msgstr "Las secuencias como abc o 6543 son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:119
+msgid "Avoid sequences."
+msgstr "Evite las secuencias."
+
+#: zxcvbn/feedback.py:125
+msgid "Recent years are easy to guess."
+msgstr "Los años recientes son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:127
+msgid "Avoid recent years or years that are associated with you."
+msgstr "Evite años recientes o años asociados con usted."
+
+#: zxcvbn/feedback.py:132
+msgid "Dates are often easy to guess."
+msgstr "Las fechas son frecuentemente fáciles de adivinar."
+
+#: zxcvbn/feedback.py:134
+msgid "Avoid dates that are associated with you."
+msgstr "Evite fechas que están asociadadas a usted."
+
+#: zxcvbn/feedback.py:157
+msgid "Do not use your personal information in your password."
+msgstr "No use información personal en su clave."
+
+#: zxcvbn/feedback.py:162
+msgid "This is a top-10 common password."
+msgstr "Esta es una clave común del top-10."
+
+#: zxcvbn/feedback.py:164
+msgid "This is a top-100 common password."
+msgstr "Esta es una clave común del top-100."
+
+#: zxcvbn/feedback.py:166
+msgid "This is a very common password."
+msgstr "Esta es una clave muy común."
+
+#: zxcvbn/feedback.py:168
+msgid "This is similar to a commonly used password."
+msgstr "La es similar a una usada comunmente."
+
+#: zxcvbn/feedback.py:176
+msgid "Names and surnames by themselves are easy to guess."
+msgstr "Los nombres y apellidos por si solos son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:178
+msgid "Common names and surnames are easy to guess."
+msgstr "Los nombres y apellidos comunes son fáciles de adivinar."
+
+#: zxcvbn/feedback.py:183
+msgid "Capitalization doesn't help very much."
+msgstr "El uso de mayúsculas no ayuda mucho."
+
+#: zxcvbn/feedback.py:185
+msgid "All-uppercase is almost as easy to guess as all-lowercase."
+msgstr "Todo mayúsculas es casi tan fácil de adivinar como todo minúsculas."
+
+#: zxcvbn/feedback.py:187
+msgid "Reversed words aren't much harder to guess"
+msgstr "Las palabras invertidas no son mucho más difíciles de adivinar."
+
+#: zxcvbn/feedback.py:190
+msgid "Predictable substitutions like '@' instead of 'a' don't help very much."
+msgstr "Substituciones predecibles como '@' en lugar de 'a' no ayudan mucho."
+

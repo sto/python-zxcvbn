@@ -3,13 +3,15 @@ import re
 # Used to get the regex patterns for capitalization
 # (Used the same way in the original zxcvbn)
 from zxcvbn import scoring
+# I18N
+from zxcvbn.i18n import _
 
 # Default feedback value
 FEEDBACK = {
     "warning": "",
     "suggestions":[
-        "Use a few words. Avoid common phrases.",
-        "Symbols, digits, or uppercase letters are not required.",
+        _("Use a few words. Avoid common phrases."),
+        _("Symbols, digits, or uppercase letters are not required."),
     ],
 }
 
@@ -33,7 +35,7 @@ def get_feedback (score, sequence):
         feedback = {
             "warning": "",
             "suggestions":[
-                "Add another word or two. Uncommon words are better."
+                _("Add another word or two. Uncommon words are better."),
             ],
         }
     return feedback
@@ -54,7 +56,7 @@ def get_all_feedback (score, sequence):
 
         # If no concrete feedback is returned, give more general feedback
         if not _all_feedback:
-            feedback["suggestions"].append("Add another word or two. Uncommon words are better.")
+            feedback["suggestions"].append(_("Add another word or two. Uncommon words are better."))
               
         # Ensure we don't report the same warning or suggestion twice.
         for item in _all_feedback:
@@ -81,55 +83,55 @@ def get_match_feedback(match, is_sole_match):
     def fun_spatial():
         if match["turns"] == 1:
             feedback ={
-                "warning": 'Straight rows of keys are easy to guess.',
+                "warning": _('Straight rows of keys are easy to guess.'),
                 "suggestions":[
-                     "Use a longer keyboard pattern with more turns."
+                     _("Use a longer keyboard pattern with more turns."),
                 ],
             }
         else:
             feedback ={
-                "warning": 'Short keyboard patterns are easy to guess.',
+                "warning": _('Short keyboard patterns are easy to guess.'),
                 "suggestions":[
-                     "Use a longer keyboard pattern with more turns."
+                     _("Use a longer keyboard pattern with more turns."),
                 ],
             }
         return feedback
     def fun_repeat():
         if len(match["base_token"]) == 1:
             feedback ={
-                "warning": 'Repeats like "aaa" are easy to guess.',
+                "warning": _('Repeats like "aaa" are easy to guess.'),
                 "suggestions":[
-                    "Avoid repeated words and characters."
+                    _("Avoid repeated words and characters."),
                 ],
             }
         else:
             feedback ={
-                    "warning": 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
+                    "warning": _('Repeats like "abcabcabc" are only slightly harder to guess than "abc"'),
                     "suggestions":[
-                        "Avoid repeated words and characters."
+                        _("Avoid repeated words and characters."),
                         ],
                     }
         return feedback
     def fun_sequence():
         return {
-            "warning": "Sequences like abc or 6543 are easy to guess.",
+            "warning": _("Sequences like abc or 6543 are easy to guess."),
             "suggestions":[
-                "Avoid sequences."
+                _("Avoid sequences."),
             ],
         }
     def fun_regex():
         if match["regex_name"] == "recent_year":
             return {
-                "warning": "Recent years are easy to guess.",
+                "warning": _("Recent years are easy to guess."),
                 "suggestions":[
-                    "Avoid recent years or years that are associated with you."
+                    _("Avoid recent years or years that are associated with you."),
                 ],
             }
     def fun_date():
         return {
-            "warning": "Dates are often easy to guess.",
+            "warning": _("Dates are often easy to guess."),
             "suggestions":[
-                "Avoid dates that are associated with you."
+                _("Avoid dates that are associated with you."),
             ],
         }
     # Dictionary that maps pattern names to funtions that return feedback
@@ -152,18 +154,18 @@ def get_dictionary_match_feedback(match, is_sole_match):
     suggestions = []
     # If the match is a common password
     if match["dictionary_name"] in ["user_inputs"]:
-        warning = "Do not use your personal information in your password."
+        warning = _("Do not use your personal information in your password.")
 
     elif match["dictionary_name"] == "passwords":
         if is_sole_match and not match["l33t"]:
             if match["rank"] <= 10:
-                warning = "This is a top-10 common password."
+                warning = _("This is a top-10 common password.")
             elif match["rank"] <= 100:
-                warning = "This is a top-100 common password."
+                warning = _("This is a top-100 common password.")
             else:
-                warning = "This is a very common password."
+                warning = _("This is a very common password.")
         else:
-            warning = "This is similar to a commonly used password."
+            warning = _("This is similar to a commonly used password.")
     # If the match is a common english word
     elif match["dictionary_name"] == "english":
         if is_sole_match:
@@ -171,19 +173,19 @@ def get_dictionary_match_feedback(match, is_sole_match):
     # If the match is a common surname/name
     elif match["dictionary_name"] in ["surnames", "male_names", "female_names"]:
         if is_sole_match:
-            warning = "Names and surnames by themselves are easy to guess."
+            warning = _("Names and surnames by themselves are easy to guess.")
         else:
-            warning = "Common names and surnames are easy to guess."
+            warning = _("Common names and surnames are easy to guess.")
 
     word = match["token"]
     # Variations of the match like UPPERCASES
     if re.match(scoring.START_UPPER, word):
-        suggestions.append("Capitalization doesn't help very much.")
+        suggestions.append(_("Capitalization doesn't help very much."))
     elif re.match(scoring.ALL_UPPER, word):
-        suggestions.append("All-uppercase is almost as easy to guess as all-lowercase.")
+        suggestions.append(_("All-uppercase is almost as easy to guess as all-lowercase."))
     if 'reversed' in match and match["reversed"] and len(match['token']) >= 4:
-        suggestions.append("Reversed words aren't much harder to guess")
+        suggestions.append(_("Reversed words aren't much harder to guess"))
     # Match contains l33t speak substitutions
     if 'l33t' in match and match["l33t"]:
-        suggestions.append("Predictable substitutions like '@' instead of 'a' don't help very much.")
+        suggestions.append(_("Predictable substitutions like '@' instead of 'a' don't help very much."))
     return {"warning": warning, "suggestions": suggestions}

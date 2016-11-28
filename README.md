@@ -1,5 +1,7 @@
 # python(3)-zxcvbn
-This is a fork of python-zxcvbn for python 3. This version has been further updated to port many of the latest features from the current javascript version. The documentation below is out fo date, as the reporting more closely matches the latest version.
+This is a fork of fork of python-zxcvbn for python 3. This version has been further updated to port many of the latest features from the current javascript version. The documentation below is out fo date, as the reporting more closely matches the latest version.
+
+The fork of the fork adds I18N and a Spanish dictionary.
 
 The feedback function has been altered to be much more verbose.
 
@@ -8,6 +10,7 @@ This is definitely alpha software, and is badly in need to test cases. The subtl
 See the original repos for more information:
 * [zxcvbn](https://github.com/dropbox/zxcvbn)
 * [python-zxcvbn](https://github.com/dropbox/python-zxcvbn)
+* [python(3)-zxcvbn](https://github.com/sans-serif/python-zxcvbn)
 
 ## Why does this exist?
 The last commit on the original python-zxcvbn lies a few years back and it is not up to date with zxcvbn.
@@ -53,3 +56,14 @@ strings you like, but is meant for user inputs from other fields of the
 form, like name and email. That way a password that includes the user's
 personal info can be heavily penalized. This list is also good for
 site-specific vocabulary.
+
+### I18N
+
+To update translations do:
+
+	python3 setup.py extract_messages
+	python3 setup.py update_catalog
+
+To compile translations do:
+
+	python3 setup.py compile_catalog
