@@ -166,8 +166,8 @@ def get_dictionary_match_feedback(match, is_sole_match):
                 warning = _("This is a very common password.")
         else:
             warning = _("This is similar to a commonly used password.")
-    # If the match is a common english word
-    elif match["dictionary_name"] == "english":
+    # If the match is a common english or spanish word
+    elif match["dictionary_name"] in ["english", "spanish"]:
         if is_sole_match:
             warning = _("A word by itself is easy to guess.")
     # If the match is a common surname/name
