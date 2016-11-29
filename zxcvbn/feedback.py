@@ -169,7 +169,7 @@ def get_dictionary_match_feedback(match, is_sole_match):
     # If the match is a common english word
     elif match["dictionary_name"] == "english":
         if is_sole_match:
-            warning = "A word by itself is easy to guess."
+            warning = _("A word by itself is easy to guess.")
     # If the match is a common surname/name
     elif match["dictionary_name"] in ["surnames", "male_names", "female_names"]:
         if is_sole_match:

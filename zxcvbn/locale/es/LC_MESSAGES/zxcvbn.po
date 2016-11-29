@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zxcvbn 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-28 20:17+0100\n"
+"POT-Creation-Date: 2016-11-29 12:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -99,6 +99,10 @@ msgstr "Esta es una clave muy común."
 #: zxcvbn/feedback.py:168
 msgid "This is similar to a commonly used password."
 msgstr "La es similar a una usada comunmente."
+
+#: zxcvbn/feedback.py:172
+msgid "A word by itself is easy to guess."
+msgstr "Una palabra por sí sóla es fácil de adivinar."
 
 #: zxcvbn/feedback.py:176
 msgid "Names and surnames by themselves are easy to guess."
