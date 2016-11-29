@@ -36,7 +36,7 @@ msgstr "Las filas de teclas son fáciles de adivinar."
 
 #: zxcvbn/feedback.py:88 zxcvbn/feedback.py:95
 msgid "Use a longer keyboard pattern with more turns."
-msgstr "Use un patrón de teclado más largo con más giros."
+msgstr "Use un patrón de teclado más largo y con más giros."
 
 #: zxcvbn/feedback.py:93
 msgid "Short keyboard patterns are easy to guess."
@@ -54,7 +54,7 @@ msgstr "Evite palabras y caracteres repetidos."
 msgid "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\""
 msgstr ""
 "Las repeticiones como \"abcabcabc\" son sólo un poco más difíciles de "
-"adivinar que \"abc\""
+"adivinar que \"abc\"."
 
 #: zxcvbn/feedback.py:117
 msgid "Sequences like abc or 6543 are easy to guess."
@@ -102,11 +102,11 @@ msgstr "La es similar a una usada comunmente."
 
 #: zxcvbn/feedback.py:172
 msgid "A word by itself is easy to guess."
-msgstr "Una palabra por sí sóla es fácil de adivinar."
+msgstr "Una sola palabra es fácil de adivinar."
 
 #: zxcvbn/feedback.py:176
 msgid "Names and surnames by themselves are easy to guess."
-msgstr "Los nombres y apellidos por si solos son fáciles de adivinar."
+msgstr "Los nombres y apellidos son fáciles de adivinar."
 
 #: zxcvbn/feedback.py:178
 msgid "Common names and surnames are easy to guess."
@@ -127,4 +127,3 @@ msgstr "Las palabras invertidas no son mucho más difíciles de adivinar."
 #: zxcvbn/feedback.py:190
 msgid "Predictable substitutions like '@' instead of 'a' don't help very much."
 msgstr "Substituciones predecibles como '@' en lugar de 'a' no ayudan mucho."
-
